@@ -1,13 +1,13 @@
-# CodeTalks | Yazılımcı Sosyal Medyası
+# CodeTalks | Social Media For Software Developers
 
-## Yapılacaklar
+## To Do
 
-> - Login sayfası işlevselliği
-> - Sign sayfası
-> - login olduktan sonra rooms sayfasına gidilecek ve açılmış odalar gözükecek
-> - rooms sayfasında yeni room ekleme tuşu tercihen floating button ve room ismi için modal
-> - seçilen roomun içinde mesaj atmak için bir buton modal eklentisiyle açılan mesaj yazma ekranı. mesajlar room içinde mesaj kartları ile gösterilecek kullanıcı ismi kaç dakika önce yazıldığı ve mesaj içeriği olacak. isteğe bağlı fotoğraf ekleme seçeneği olacak.
+> - login page ui complete but functionality missing
+> - Sign Page missing
+> - After logging in, go to the rooms page and open rooms will appear
+> - On the rooms page, a button to add a new room, preferably a floating button, and a modal to enter the room name
+> - A button to send a message in the selected room, a message writing screen that opens with the modal plugin. messages will be displayed with message cards in the room, the user name, how many minutes ago it was written and the message content will be in the cards. there will be an optional photo attachment option.
 
-## Uygulamanın Sayfaları
+## Pages of the App
 
-> Sayfalar Oluşturuldukça eklenecektir
+> Pages will be added as they are created

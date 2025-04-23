@@ -1,22 +1,46 @@
 import React, { useState } from "react";
-import { SafeAreaView, Text, TextInput, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { Formik } from "formik";
-import Button from "../../../components/Button";
-import { auth } from "../../../../firebase.config";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { showMessage } from "react-native-flash-message";
 
-import styles from "./Login.style";
+import app from "../../../../firebase.config.js";
+
+import authErrorMessageParser from "../../../utils/authErrorMessageParser.js";
+import Button from "../../../components/Button";
 import Input from "../../../components/Input/Input";
+import styles from "./Login.style";
 
 const initialFormValues = {
   email: "",
   password: "",
 };
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
-  function handleLogin(values) {
-    console.log(values);
+  const auth = getAuth(app);
+
+  async function handleLogin(formValues) {
+    try {
+      setLoading(true);
+      await signInWithEmailAndPassword(
+        auth,
+        formValues.email,
+        formValues.password
+      );
+      showMessage({
+        message: "Giriş Yapıldı",
+        type: "success",
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      showMessage({
+        message: authErrorMessageParser(error.code),
+        type: "danger",
+      });
+    }
   }
 
   return (
@@ -39,12 +63,23 @@ const Login = () => {
                 icon={"key"}
                 onTextChange={handleChange("password")}
                 value={values.password}
+                isSecure
               />
-              <Button text="Giriş yap" onPress={handleSubmit} />
+              <Button
+                text="Giriş yap"
+                onPress={handleSubmit}
+                loading={loading}
+              />
             </>
           )}
         </Formik>
-        <Button text="Kayıt ol" />
+        <Button
+          text="Kayıt ol"
+          theme="secondary"
+          onPress={() => {
+            navigation.navigate("SignPage");
+          }}
+        />
       </View>
     </SafeAreaView>
   );

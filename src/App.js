@@ -1,14 +1,28 @@
-import { Text, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import FlashMessage from "react-native-flash-message";
+
+import app from "../firebase.config";
 
 import Login from "./pages/auth/Login";
 import Sign from "./pages/auth/Sign";
+import Rooms from "./pages/messages/rooms/Rooms";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [userSession, setUserSession] = useState(false);
+
+  const auth = getAuth(app);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUserSession(!!user);
+    });
+  }, []);
+
   const AuthStack = () => {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -20,10 +34,14 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="AuthStack" component={AuthStack} />
-        {/* <Stack.Screen name="SignPage" component={Sign} /> */}
-      </Stack.Navigator>
+      {!userSession ? (
+        <AuthStack />
+      ) : (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="RoomsPage" component={Rooms} />
+        </Stack.Navigator>
+      )}
+      <FlashMessage position="top" />
     </NavigationContainer>
   );
 }

@@ -1,10 +1,14 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import styles from "./Button.style";
 
-function Button({ text, onPress }) {
+function Button({ text, onPress, loading }) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
+      {loading ? (
+        <ActivityIndicator size={30} />
+      ) : (
+        <Text style={styles.text}>{text}</Text>
+      )}
     </TouchableOpacity>
   );
 }

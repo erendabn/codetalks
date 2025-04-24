@@ -4,7 +4,7 @@ import colors from "../../../styles/colors";
 export default StyleSheet.create({
   container: {
     flex: 2,
-    backgroundColor: colors.flushorange,
+    backgroundColor: colors.orangeA700,
     justifyContent: "center",
   },
   header_container: {
